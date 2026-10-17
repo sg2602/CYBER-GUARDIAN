@@ -1,0 +1,38 @@
+{
+  "_comment": "Generic phishing content cues. Each key -> finding EMAIL_<KEY>. Case-insensitive regex.",
+  "URGENCY": {
+    "title": "Urgency / time-pressure language",
+    "severity": "MEDIUM", "points": 10, "attack_ids": ["T1566"],
+    "patterns": ["\\burgent(ly)?\\b", "immediate(ly)?", "within (24|48|12|2) ?h(ou)?rs?", "as soon as possible", "\\basap\\b", "act now", "final (notice|warning|reminder)", "last chance", "expires? (today|tonight|soon)", "today itself", "right away", "time.?sensitive"]
+  },
+  "THREAT_LANGUAGE": {
+    "title": "Threat / negative-consequence language",
+    "severity": "MEDIUM", "points": 10, "attack_ids": ["T1566"],
+    "patterns": ["(account|service|card|number).{0,30}(will be )?(suspend|terminat|clos|deactivat|block|lock|disabl)", "legal action", "penalt(y|ies)", "permanently (deleted|closed|blocked)", "unauthori[sz]ed (access|activity|login|transaction)", "suspicious (activity|login|sign-?in)", "failure to (comply|verify|respond|update)"]
+  },
+  "CREDENTIAL_REQUEST": {
+    "title": "Request for credentials / OTP / PIN",
+    "severity": "HIGH", "points": 20, "attack_ids": ["T1566", "T1598"],
+    "patterns": ["(enter|confirm|provide|update|verify|send|share|reply with).{0,40}(password|passcode|otp|one.?time|pin\\b|cvv|login details|credentials|username)", "(password|otp|cvv|pin).{0,30}(below|in the form|reply|share)", "sign.?in to (confirm|verify|restore|unlock)", "log ?in (here|below|now) to"]
+  },
+  "FINANCIAL_REQUEST": {
+    "title": "Financial / payment request",
+    "severity": "MEDIUM", "points": 12, "attack_ids": ["T1566", "T1656"],
+    "patterns": ["(wire|transfer|send|pay).{0,30}(money|funds|amount|fee|payment|rs\\.?|₹|\\$|usd|inr)", "gift ?cards?", "bitcoin|crypto ?wallet|usdt", "(bank|account) details", "processing fee", "advance fee", "outstanding (amount|payment|balance|invoice)", "(clear|settle) (the )?(dues|payment|invoice)"]
+  },
+  "PRIZE_OFFER": {
+    "title": "Suspicious prize / offer / reward",
+    "severity": "MEDIUM", "points": 10, "attack_ids": ["T1566"],
+    "patterns": ["congratulations", "you (have )?(won|been selected)", "\\bwinner\\b", "free (gift|iphone|money|reward)", "claim (your|the) (prize|reward|refund|gift)", "cash ?back of", "100% free", "\\$[0-9,]+ (million|thousand)", "inheritance|beneficiary"]
+  },
+  "ACCOUNT_VERIFY": {
+    "title": "Account-verification / update-your-details language",
+    "severity": "MEDIUM", "points": 12, "attack_ids": ["T1566"],
+    "patterns": ["verify (your )?(account|identity|details|information|email)", "(confirm|update|validate|restore|reactivate) (your )?(account|details|information|billing|payment (method|details))", "account (verification|validation|confirmation)", "(unusual|suspicious).{0,20}(sign.?in|login|activity).{0,60}(verify|confirm|click)", "click (here|below|the link) to (verify|confirm|update|restore|unlock|login|log in|sign in)"]
+  },
+  "CALLBACK_NUMBER": {
+    "title": "Asks you to call / WhatsApp a phone number",
+    "severity": "MEDIUM", "points": 8, "attack_ids": ["T1566.004", "T1656"],
+    "patterns": ["(call|contact|whatsapp|dial|ring).{0,30}(\\+?91[ -]?)?[6-9][0-9]{9}\\b", "(call|contact|whatsapp).{0,30}\\+?[0-9][0-9 ()-]{8,}[0-9]", "(helpline|customer care|support) (no|number)\\.?.{0,10}[0-9]{8,}"]
+  }
+}

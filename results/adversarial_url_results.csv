@@ -1,0 +1,7 @@
+perturbation,n,rules_only,ml_only,hybrid,rules_only_moderate+,ml_only_moderate+,hybrid_moderate+
+original,300,0.03,0.93,0.95,0.28,0.9933,0.9867
+homoglyph_swap,300,0.0333,0.98,1.0,0.2967,1.0,1.0
+prepend_https,300,0.0167,0.8033,0.8333,0.1433,0.91,0.9033
+url_shortener,300,0.0,1.0,1.0,0.0,1.0,1.0
+long_benign_path,300,0.0733,0.47,0.5767,0.72,0.79,0.9067
+subdomain_padding,300,0.3133,1.0,0.98,1.0,1.0,1.0

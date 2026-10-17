@@ -1,0 +1,18 @@
+{
+  "url": {
+    "method": "max",
+    "rule_weight": 0.5,
+    "selected_on": "5-fold out-of-fold predictions on the training split",
+    "oof_f1": 0.8708,
+    "oof_precision": 0.8233,
+    "oof_recall": 0.9242
+  },
+  "email": {
+    "method": "linear",
+    "rule_weight": 0.3,
+    "selected_on": "5-fold out-of-fold predictions on the training split",
+    "oof_f1": 0.9928,
+    "oof_precision": 0.993,
+    "oof_recall": 0.9926
+  }
+}

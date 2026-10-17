@@ -1,0 +1,14 @@
+profile,name,expected,baseline_score,baseline_tier,correlated_score,correlated_tier,chains,ablation_no_high_cap_score,ablation_no_high_cap_tier,coverage,baseline_correct,correlated_correct,dangerous,baseline_mislabels_danger,correlated_mislabels_danger,baseline_tier_error,correlated_tier_error
+P01,Good hygiene everywhere,LOW,91.5,LOW,91.5,LOW,-,91.5,LOW,5/5,True,True,False,False,False,0,0
+P02,"Credential-harvest phish, everything else good (problem statement)",CRITICAL,65.0,MODERATE,39.0,CRITICAL,CH_CRED_HARVEST,39.0,CRITICAL,5/5,False,True,True,True,False,2,0
+P03,Demo storyline: weak password + no MFA + KYC phish + nosy calculator,CRITICAL,32.7,CRITICAL,25.5,CRITICAL,CH_ACCOUNT_TAKEOVER;CH_CRED_HARVEST;CH_MOBILE_SURVEILLANCE;CH_INDIA_PAYMENT_SCAM,25.5,CRITICAL,5/5,True,True,True,False,False,0,0
+P04,"Banking-trojan app, everything else good",CRITICAL,71.1,MODERATE,39.0,CRITICAL,CH_BANKING_TROJAN,39.0,CRITICAL,5/5,False,True,True,True,False,2,0
+P05,Common password but MFA on,MODERATE,62.1,MODERATE,62.1,MODERATE,-,62.1,MODERATE,4/5,True,True,False,False,False,0,0
+P06,"Reused weak password + no MFA, no lure seen",HIGH,68.2,MODERATE,59.0,HIGH,CH_CREDENTIAL_STUFFING,65.3,MODERATE,4/5,False,True,True,True,False,1,0
+P07,Stalkerware-like calculator,HIGH,77.8,MODERATE,59.0,HIGH,CH_MOBILE_SURVEILLANCE,73.5,MODERATE,3/5,False,True,True,True,False,1,0
+P08,"Neglected device (no backup, no updates, no encryption)",HIGH,74.8,MODERATE,59.0,HIGH,CH_UNRECOVERABLE,73.0,MODERATE,4/5,False,True,True,True,False,1,0
+P09,UPI collect-request scam message,HIGH,66.4,MODERATE,59.0,HIGH,CH_INDIA_PAYMENT_SCAM,65.4,MODERATE,4/5,False,True,True,True,False,1,0
+P10,Partial assessment: strong password + safe URL only,LOW,90.7,LOW,90.7,LOW,-,90.7,LOW,2/5,True,True,False,False,False,0,0
+P11,"Promotional email, decent password, MFA on",LOW,95.1,LOW,95.1,LOW,-,95.1,LOW,5/5,True,True,False,False,False,0,0
+P12,PayPal look-alike login page + reused password + no MFA,CRITICAL,43.3,HIGH,33.7,CRITICAL,CH_ACCOUNT_TAKEOVER;CH_CREDENTIAL_STUFFING,33.7,CRITICAL,4/5,False,True,True,False,False,1,0
+P13,"'Digital arrest' scam email, otherwise good",HIGH,69.6,MODERATE,59.0,HIGH,CH_COERCION_SCAM,68.2,MODERATE,4/5,False,True,True,True,False,1,0

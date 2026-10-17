@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CyberGuardian Security Audit Report - {{ a.assessment_id }}</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #1f2933; margin: 0; background: #f5f7fa; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 24px; background: #fff; }
+  h1 { margin: 0 0 4px; font-size: 26px; } h2 { border-bottom: 2px solid #e4e7eb; padding-bottom: 6px; margin-top: 32px; font-size: 19px; }
+  .sub { color: #616e7c; margin: 0 0 18px; }
+  .score { display: flex; gap: 24px; align-items: center; padding: 18px; border-radius: 10px; background: #f0f4f8; }
+  .big { font-size: 52px; font-weight: 700; line-height: 1; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; color: #fff; font-size: 12px; font-weight: 600; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid #e4e7eb; vertical-align: top; }
+  th { background: #f0f4f8; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .chain { border-left: 4px solid #c62828; padding: 8px 14px; background: #fff5f5; margin: 10px 0; border-radius: 4px; }
+  .muted { color: #616e7c; font-size: 13px; }
+  .warn { background: #fffbea; border-left: 4px solid #f9a825; padding: 8px 14px; border-radius: 4px; }
+  ol.steps { margin: 6px 0 0 18px; padding: 0; }
+  .disclaimer { font-size: 12px; color: #616e7c; margin-top: 30px; border-top: 1px solid #e4e7eb; padding-top: 12px; }
+</style>
+</head>
+<body><div class="wrap">
+<h1>CyberGuardian Security Audit Report</h1>
+<p class="sub">Intelligent Personal Cybersecurity Risk Assessment System &middot; Assessment <b>{{ a.assessment_id }}</b> &middot; {{ a.created_at }}</p>
+
+<h2>Executive summary</h2>
+<div class="score">
+  <div><div class="big" style="color: {{ color(a.risk_level) }}">{{ "%.0f"|format(a.score) }}</div><div class="muted">Cyber Safety Score /100 (higher = safer)</div></div>
+  <div>
+    <span class="pill" style="background: {{ color(a.risk_level) }}">{{ tier_label(a.risk_level) }}</span>
+    {% if a.coverage.partial %}<span class="pill" style="background:#616e7c">Partial assessment</span>{% endif %}
+    <p>Score {{ "%.0f"|format(a.score) }} &mdash; {{ a.coverage.label }}.<br>
+    Plain weighted average (no correlation): <b>{{ "%.0f"|format(a.baseline) }}</b> ({{ tier_label(a.baseline_risk_level) }}).
+    {% if a.chains %}<b>{{ a.chains|length }}</b> attack chain(s) detected.{% endif %}
+    {% if a.floor_applied %}Critical-severity floor applied (score capped at 39).{% endif %}</p>
+  </div>
+</div>
+
+<h2>Module scores</h2>
+<table><tr><th>Module</th><th class="num">Weight</th><th class="num">Score</th><th>Risk</th><th>Notes</th></tr>
+{% for m in modules %}<tr><td>{{ m.label }}</td><td class="num">{{ m.weight }}</td><td class="num">{{ m.score }}</td><td>{{ m.risk }}</td><td>{{ m.note }}</td></tr>{% endfor %}
+</table>
+
+<h2>Attack chains detected</h2>
+{% if a.chains %}{% for c in a.chains %}
+<div class="chain"><b>{{ c.name }}</b> ({{ c.id }}) &middot; severity {{ c.severity }} &middot; MITRE ATT&amp;CK: {{ c.attack_ids|join(", ") }}
+<ol class="steps">{% for s in c.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+<div class="muted">{{ c.explanation }} Participating findings: {{ c.participants|join(", ") }}.</div></div>
+{% endfor %}{% else %}<p>No cross-module attack chains detected.</p>{% endif %}
+
+<h2>Score breakdown (points lost)</h2>
+<p class="muted">Every point lost from 100 is traced to a finding. 100 &minus; {{ "%.1f"|format(total_lost) }} = {{ "%.1f"|format(a.score) }}.</p>
+<table><tr><th>Finding</th><th>Source</th><th class="num">Points lost</th></tr>
+{% for b in a.breakdown %}<tr><td>{{ b.label }}</td><td>{{ b.tag }}</td><td class="num">&minus;{{ "%.1f"|format(b.points) }}</td></tr>{% endfor %}
+</table>
+
+<h2>Critical &amp; high findings</h2>
+{% if a.critical_findings %}<table><tr><th>Severity</th><th>Module</th><th>Finding</th><th>Evidence</th></tr>
+{% for f in a.critical_findings %}<tr><td>{{ f.severity }}</td><td>{{ f.module }}</td><td>{{ f.title }} <span class="muted">({{ f.id }})</span></td><td class="muted">{{ f.evidence }}</td></tr>{% endfor %}
+</table>{% else %}<p>None.</p>{% endif %}
+
+<h2>Recommendations</h2>
+{% for p, recs in rec_groups.items() %}{% if recs %}<h3>{{ p }}</h3>
+<table><tr><th>Action</th><th>Effort</th><th>Why</th></tr>
+{% for r in recs %}<tr><td><b>{{ r.title }}</b><ul>{% for s in r.steps %}<li>{{ s }}</li>{% endfor %}</ul></td><td>{{ r.effort }}</td>
+<td class="muted">{{ r.triggered_by|join(", ") }}{% if r.breaks_chains %}<br><b>Breaks:</b> {{ r.breaks_chains|join(", ") }}{% endif %}</td></tr>{% endfor %}
+</table>{% endif %}{% endfor %}
+
+<h2>What-If: best next actions</h2>
+{% if a.whatif %}<table><tr><th>Action</th><th>Effort</th><th class="num">New score</th><th class="num">Gain</th><th>Breaks chain</th></tr>
+{% for w in a.whatif[:8] %}<tr><td>{{ w.title }}</td><td>{{ w.effort }}</td><td class="num">{{ "%.0f"|format(w.new_score) }}</td><td class="num">{{ "%+.0f"|format(w.gain) }}</td><td>{{ w.breaks_chains|join(", ") }}</td></tr>{% endfor %}
+</table>
+{% if a.whatif_top3 %}<p>Applying the top {{ a.whatif_top3.actions|length }} actions together &rarr; projected score <b>{{ "%.0f"|format(a.whatif_top3.projected_score) }}</b> ({{ tier_label(a.whatif_top3.projected_risk_level) }}).</p>{% endif %}
+{% else %}<p>No actions available.</p>{% endif %}
+
+<h2>Future risks</h2>
+{% if future %}<ul>{% for x in future %}<li>{{ x }}</li>{% endfor %}</ul>{% else %}<p>No specific future-risk indicators.</p>{% endif %}
+
+<h2>Results needing manual verification</h2>
+{% if uncertain %}<div class="warn"><ul>{% for x in uncertain %}<li>{{ x }}</li>{% endfor %}</ul></div>{% else %}<p>Rules and ML agreed on all assessed inputs.</p>{% endif %}
+
+<h2>General security tips</h2>
+<ul>{% for t in tips %}<li>{{ t }}</li>{% endfor %}</ul>
+
+<div class="disclaimer"><b>Disclaimer.</b> CyberGuardian estimates personal security risk from rules, self-reported answers and
+machine-learning models trained on public datasets. URL analysis is lexical only (links are never visited); the device audit
+is self-reported; ML models can be wrong and reflect dataset bias. This report is guidance, not a guarantee of security, and does
+not replace professional incident response. No passwords, email bodies, full URLs or manifests are stored or included in this report.
+In India, report cyber fraud at 1930 or https://cybercrime.gov.in.</div>
+</div></body></html>

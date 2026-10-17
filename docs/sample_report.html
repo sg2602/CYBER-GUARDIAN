@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CyberGuardian Security Audit Report - CG-20261009-123413-772B64</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #1f2933; margin: 0; background: #f5f7fa; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 24px; background: #fff; }
+  h1 { margin: 0 0 4px; font-size: 26px; } h2 { border-bottom: 2px solid #e4e7eb; padding-bottom: 6px; margin-top: 32px; font-size: 19px; }
+  .sub { color: #616e7c; margin: 0 0 18px; }
+  .score { display: flex; gap: 24px; align-items: center; padding: 18px; border-radius: 10px; background: #f0f4f8; }
+  .big { font-size: 52px; font-weight: 700; line-height: 1; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; color: #fff; font-size: 12px; font-weight: 600; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid #e4e7eb; vertical-align: top; }
+  th { background: #f0f4f8; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .chain { border-left: 4px solid #c62828; padding: 8px 14px; background: #fff5f5; margin: 10px 0; border-radius: 4px; }
+  .muted { color: #616e7c; font-size: 13px; }
+  .warn { background: #fffbea; border-left: 4px solid #f9a825; padding: 8px 14px; border-radius: 4px; }
+  ol.steps { margin: 6px 0 0 18px; padding: 0; }
+  .disclaimer { font-size: 12px; color: #616e7c; margin-top: 30px; border-top: 1px solid #e4e7eb; padding-top: 12px; }
+</style>
+</head>
+<body><div class="wrap">
+<h1>CyberGuardian Security Audit Report</h1>
+<p class="sub">Intelligent Personal Cybersecurity Risk Assessment System &middot; Assessment <b>CG-20261009-123413-772B64</b> &middot; 2026-10-09T12:34:13</p>
+
+<h2>Executive summary</h2>
+<div class="score">
+  <div><div class="big" style="color: #c62828">25</div><div class="muted">Cyber Safety Score /100 (higher = safer)</div></div>
+  <div>
+    <span class="pill" style="background: #c62828">CRITICAL</span>
+    
+    <p>Score 25 &mdash; based on 5 of 5 modules (coverage 100%).<br>
+    Plain weighted average (no correlation): <b>33</b> (CRITICAL).
+    <b>4</b> attack chain(s) detected.
+    </p>
+  </div>
+</div>
+
+<h2>Module scores</h2>
+<table><tr><th>Module</th><th class="num">Weight</th><th class="num">Score</th><th>Risk</th><th>Notes</th></tr>
+<tr><td>Password Security</td><td class="num">20%</td><td class="num">50</td><td>HIGH</td><td></td></tr><tr><td>Email Security</td><td class="num">25%</td><td class="num">0</td><td>CRITICAL</td><td></td></tr><tr><td>Website/URL Security</td><td class="num">25%</td><td class="num">5</td><td>CRITICAL</td><td></td></tr><tr><td>App Permission Risk</td><td class="num">15%</td><td class="num">66</td><td>MODERATE</td><td>escalated by correlation to 59</td></tr><tr><td>Device Security</td><td class="num">15%</td><td class="num">77</td><td>MODERATE</td><td></td></tr>
+</table>
+
+<h2>Attack chains detected</h2>
+
+<div class="chain"><b>Account takeover</b> (CH_ACCOUNT_TAKEOVER) &middot; severity CRITICAL &middot; MITRE ATT&amp;CK: T1566, T1110, T1078
+<ol class="steps"><li>Phishing lure / fake login page harvests credentials (T1566)</li><li>Weak or reused password is guessed or replayed (T1110)</li><li>No MFA - attacker logs in with valid account (T1078)</li></ol>
+<div class="muted">A weak/reused password, no MFA and an active credential lure combine into a direct path to account takeover - each weakness alone is survivable, together they are not. Participating findings: PWD_LOW_ENTROPY, PWD_NAME_DIGITS, DEV_NO_MFA, EMAIL_CREDENTIAL_REQUEST, EMAIL_ACCOUNT_VERIFY, EMAIL_IN_KYC, EMAIL_LOGIN_LINK, URL_SENSITIVE_KEYWORDS.</div></div>
+
+<div class="chain"><b>Credential harvest</b> (CH_CRED_HARVEST) &middot; severity CRITICAL &middot; MITRE ATT&amp;CK: T1566.002
+<ol class="steps"><li>Phishing email delivered (T1566)</li><li>Embedded link leads to high-risk login/verify page (T1566.002)</li><li>Credentials typed into attacker page</li></ol>
+<div class="muted">The email&#39;s own link scored HIGH risk and points to a login/verify page - a working credential-harvesting kit rather than mere spam. Participating findings: EMAIL_EMBEDDED_URL_HIGH, EMAIL_LOGIN_LINK, EMAIL_ACCOUNT_VERIFY, EMAIL_CREDENTIAL_REQUEST.</div></div>
+
+<div class="chain"><b>Mobile surveillance</b> (CH_MOBILE_SURVEILLANCE) &middot; severity HIGH &middot; MITRE ATT&amp;CK: T1429, T1430
+<ol class="steps"><li>App requests sensor/SMS access unrelated to its purpose</li><li>Audio capture / location tracking (T1429, T1430)</li><li>Data exfiltrated in background</li></ol>
+<div class="muted">Two or more surveillance-capable permissions in an app whose category does not need them is the profile of stalkerware / spyware. Participating findings: PERM_UNEXPECTED_SMS, PERM_UNEXPECTED_MICROPHONE.</div></div>
+
+<div class="chain"><b>Payment-fraud lure</b> (CH_INDIA_PAYMENT_SCAM) &middot; severity HIGH &middot; MITRE ATT&amp;CK: T1566, T1656
+<ol class="steps"><li>KYC / UPI pretext message (T1566)</li><li>Victim directed to link or phone number</li><li>Victim approves collect request / shares PIN-OTP (T1656 impersonation)</li></ol>
+<div class="muted">A KYC/UPI pretext combined with a payment request, call-back number or risky link is the standard Indian payment-fraud script. Participating findings: EMAIL_IN_KYC, EMAIL_EMBEDDED_URL_HIGH.</div></div>
+
+
+<h2>Score breakdown (points lost)</h2>
+<p class="muted">Every point lost from 100 is traced to a finding. 100 &minus; 74.5 = 25.5.</p>
+<table><tr><th>Finding</th><th>Source</th><th class="num">Points lost</th></tr>
+<tr><td>Email: ML model: text resembles phishing emails</td><td>ML/SHAP</td><td class="num">&minus;17.5</td></tr><tr><td>Website/URL: ML model: URL resembles known phishing URLs</td><td>ML/SHAP</td><td class="num">&minus;14.0</td></tr><tr><td>Attack chain: Account takeover</td><td>correlation engine</td><td class="num">&minus;4.3</td></tr><tr><td>Password: Low password entropy</td><td>rules</td><td class="num">&minus;4.0</td></tr><tr><td>Password: Name/word + digits pattern</td><td>rules</td><td class="num">&minus;3.0</td></tr><tr><td>Website/URL: Login / verify / account keywords</td><td>rules</td><td class="num">&minus;2.6</td></tr><tr><td>Device: No multi-factor authentication on main accounts</td><td>rules</td><td class="num">&minus;2.2</td></tr><tr><td>Website/URL: Brand name used outside the brand&#39;s real domain</td><td>rules</td><td class="num">&minus;2.2</td></tr><tr><td>Password: Sequential / keyboard pattern</td><td>rules</td><td class="num">&minus;2.0</td></tr><tr><td>App: Microphone not expected for a Calculator app</td><td>rules</td><td class="num">&minus;1.8</td></tr><tr><td>App: Read / send / receive SMS not expected for a Calculator app</td><td>rules</td><td class="num">&minus;1.8</td></tr><tr><td>Email: Embedded link scored CRITICAL by URL scanner</td><td>rules</td><td class="num">&minus;1.8</td></tr><tr><td>Website/URL: Suspicious top-level domain</td><td>rules</td><td class="num">&minus;1.8</td></tr><tr><td>App: Permissions excessive for stated purpose</td><td>rules</td><td class="num">&minus;1.5</td></tr><tr><td>Website/URL: No HTTPS (unencrypted connection)</td><td>rules</td><td class="num">&minus;1.5</td></tr><tr><td>Device: No recent backup</td><td>rules</td><td class="num">&minus;1.2</td></tr><tr><td>Attack chain: Mobile surveillance</td><td>correlation engine</td><td class="num">&minus;1.1</td></tr><tr><td>Attack chain: Credential harvest</td><td>correlation engine</td><td class="num">&minus;1.0</td></tr><tr><td>Password: No special characters</td><td>rules</td><td class="num">&minus;1.0</td></tr><tr><td>Website/URL: Many hyphens</td><td>rules</td><td class="num">&minus;0.9</td></tr><tr><td>Website/URL: Random-looking domain name</td><td>rules</td><td class="num">&minus;0.9</td></tr><tr><td>Email: Request for credentials / OTP / PIN</td><td>rules</td><td class="num">&minus;0.8</td></tr><tr><td>Attack chain: Payment-fraud lure</td><td>correlation engine</td><td class="num">&minus;0.8</td></tr><tr><td>Email: Display-name spoofing</td><td>rules</td><td class="num">&minus;0.7</td></tr><tr><td>Email: KYC update / expiry lure</td><td>rules</td><td class="num">&minus;0.7</td></tr><tr><td>Email: Fake bank alert (SBI/HDFC/ICICI-style)</td><td>rules</td><td class="num">&minus;0.6</td></tr><tr><td>Email: Account-verification / update-your-details language</td><td>rules</td><td class="num">&minus;0.6</td></tr><tr><td>Email: Reply-To differs from sender domain</td><td>rules</td><td class="num">&minus;0.5</td></tr><tr><td>Email: Suspicious sender domain</td><td>rules</td><td class="num">&minus;0.5</td></tr><tr><td>Email: Urgency / time-pressure language</td><td>rules</td><td class="num">&minus;0.5</td></tr><tr><td>Email: Threat / negative-consequence language</td><td>rules</td><td class="num">&minus;0.4</td></tr><tr><td>Email: Link points to a login/verify-style page</td><td>rules</td><td class="num">&minus;0.3</td></tr>
+</table>
+
+<h2>Critical &amp; high findings</h2>
+<table><tr><th>Severity</th><th>Module</th><th>Finding</th><th>Evidence</th></tr>
+<tr><td>CRITICAL</td><td>correlation</td><td>Attack chain: Account takeover <span class="muted">(CH_ACCOUNT_TAKEOVER)</span></td><td class="muted">Chain of 8 findings (PWD_LOW_ENTROPY, PWD_NAME_DIGITS, DEV_NO_MFA, EMAIL_CREDENTIAL_REQUEST, EMAIL_ACCOUNT_VERIFY, EMAIL_IN_KYC, EMAIL_LOGIN_LINK, URL_SENSITIVE_KEYWORDS); escalation 30% of their weighted deficit 14.4</td></tr><tr><td>CRITICAL</td><td>correlation</td><td>Attack chain: Credential harvest <span class="muted">(CH_CRED_HARVEST)</span></td><td class="muted">Chain of 4 findings (EMAIL_EMBEDDED_URL_HIGH, EMAIL_LOGIN_LINK, EMAIL_ACCOUNT_VERIFY, EMAIL_CREDENTIAL_REQUEST); escalation 30% of their weighted deficit 3.5; email module escalated to CRITICAL</td></tr><tr><td>HIGH</td><td>email</td><td>ML model: text resembles phishing emails <span class="muted">(EMAIL_ML_PHISHING)</span></td><td class="muted">LogisticRegression probability 1.00; SHAP top cues: word &#39;account&#39;, word &#39;update&#39;, word &#39;dear&#39;, word &#39;pending&#39;, word &#39;urgent&#39;, word &#39;verify&#39;</td></tr><tr><td>HIGH</td><td>url</td><td>ML model: URL resembles known phishing URLs <span class="muted">(URL_ML_MALICIOUS)</span></td><td class="muted">RandomForest probability 0.95; SHAP top risk features: Login/verify-type keywords, Brand name outside the real domain, Suspicious top-level domain, Path length, Hyphens in URL</td></tr><tr><td>HIGH</td><td>password</td><td>Low password entropy <span class="muted">(PWD_LOW_ENTROPY)</span></td><td class="muted">Estimated effective entropy 25 bits (&lt; 40) after pattern penalties</td></tr><tr><td>HIGH</td><td>password</td><td>Name/word + digits pattern <span class="muted">(PWD_NAME_DIGITS)</span></td><td class="muted">Structure is letters followed by a short number (e.g. Name123) - the first pattern attackers try</td></tr><tr><td>HIGH</td><td>device</td><td>No multi-factor authentication on main accounts <span class="muted">(DEV_NO_MFA)</span></td><td class="muted">Answered NO to: Is multi-factor authentication enabled on your main accounts?</td></tr><tr><td>HIGH</td><td>permission</td><td>Microphone not expected for a Calculator app <span class="muted">(PERM_UNEXPECTED_MICROPHONE)</span></td><td class="muted">High-sensitivity permission outside the Calculator baseline</td></tr><tr><td>HIGH</td><td>permission</td><td>Read / send / receive SMS not expected for a Calculator app <span class="muted">(PERM_UNEXPECTED_SMS)</span></td><td class="muted">High-sensitivity permission outside the Calculator baseline</td></tr><tr><td>HIGH</td><td>email</td><td>Embedded link scored CRITICAL by URL scanner <span class="muted">(EMAIL_EMBEDDED_URL_HIGH)</span></td><td class="muted">Worst link domain sbi-kyc-update.xyz scored 5/100</td></tr><tr><td>HIGH</td><td>email</td><td>Request for credentials / OTP / PIN <span class="muted">(EMAIL_CREDENTIAL_REQUEST)</span></td><td class="muted">1 matching cue(s)</td></tr><tr><td>HIGH</td><td>email</td><td>Display-name spoofing <span class="muted">(EMAIL_DISPLAY_NAME_SPOOF)</span></td><td class="muted">Display name claims &#39;sbi&#39; but sender domain is sbi-kyc-update.xyz</td></tr><tr><td>HIGH</td><td>email</td><td>KYC update / expiry lure <span class="muted">(EMAIL_IN_KYC)</span></td><td class="muted">1 India-specific scam cue(s)</td></tr><tr><td>HIGH</td><td>email</td><td>Fake bank alert (SBI/HDFC/ICICI-style) <span class="muted">(EMAIL_IN_FAKE_BANK)</span></td><td class="muted">1 India-specific scam cue(s)</td></tr><tr><td>HIGH</td><td>correlation</td><td>Attack chain: Mobile surveillance <span class="muted">(CH_MOBILE_SURVEILLANCE)</span></td><td class="muted">Chain of 2 findings (PERM_UNEXPECTED_SMS, PERM_UNEXPECTED_MICROPHONE); escalation 30% of their weighted deficit 3.6; permission module escalated to HIGH</td></tr><tr><td>HIGH</td><td>correlation</td><td>Attack chain: Payment-fraud lure <span class="muted">(CH_INDIA_PAYMENT_SCAM)</span></td><td class="muted">Chain of 2 findings (EMAIL_IN_KYC, EMAIL_EMBEDDED_URL_HIGH); escalation 30% of their weighted deficit 2.5; email module escalated to CRITICAL</td></tr>
+</table>
+
+<h2>Recommendations</h2>
+<h3>Immediate</h3>
+<table><tr><th>Action</th><th>Effort</th><th>Why</th></tr>
+<tr><td><b>Do not act on the suspicious email - verify independently and report it</b><ul><li>Do not click embedded links or open attachments; do not reply.</li><li>Verify by contacting the organisation through its official app/website typed by hand.</li><li>Never provide passwords, OTPs, PINs or card details by email.</li><li>Report it (Report-phishing button / forward to the brand&#39;s abuse address), then delete it.</li></ul></td><td>Low</td>
+<td class="muted">EMAIL_ML_PHISHING, EMAIL_EMBEDDED_URL_HIGH, EMAIL_CREDENTIAL_REQUEST, EMAIL_DISPLAY_NAME_SPOOF, EMAIL_IN_KYC, EMAIL_IN_FAKE_BANK, EMAIL_ACCOUNT_VERIFY, EMAIL_REPLYTO_MISMATCH, EMAIL_SUSPICIOUS_SENDER_DOMAIN, EMAIL_URGENCY, EMAIL_THREAT_LANGUAGE, EMAIL_LOGIN_LINK<br><b>Breaks:</b> CH_ACCOUNT_TAKEOVER, CH_CRED_HARVEST, CH_INDIA_PAYMENT_SCAM</td></tr><tr><td><b>Do not open the risky link; use the official site instead</b><ul><li>Do not enter credentials on the page.</li><li>Type the official address yourself or use the official app.</li><li>If already opened and credentials were entered, change the password immediately and enable MFA.</li></ul></td><td>Low</td>
+<td class="muted">EMAIL_EMBEDDED_URL_HIGH, EMAIL_LOGIN_LINK, URL_ML_MALICIOUS, URL_SENSITIVE_KEYWORDS, URL_BRAND_MISPLACED, URL_SUSPICIOUS_TLD, URL_NO_HTTPS, URL_MANY_HYPHENS, URL_RANDOM_DOMAIN<br><b>Breaks:</b> CH_ACCOUNT_TAKEOVER, CH_CRED_HARVEST</td></tr><tr><td><b>Replace the weak password with a long, unique passphrase</b><ul><li>Use 16+ characters - e.g. four or more random unrelated words with separators.</li><li>Avoid names, birth years, keyboard patterns (qwerty, 123) and dictionary words with simple substitutions.</li><li>Generate and store it in a password manager.</li></ul></td><td>Low</td>
+<td class="muted">PWD_LOW_ENTROPY, PWD_NAME_DIGITS, PWD_SEQUENTIAL, PWD_NO_SPECIAL<br><b>Breaks:</b> CH_ACCOUNT_TAKEOVER</td></tr><tr><td><b>Enable multi-factor authentication (MFA)</b><ul><li>Turn on 2-step verification for email, banking and social accounts (authenticator app or passkey preferred over SMS).</li><li>Save the backup codes offline.</li><li>With MFA a stolen password alone is no longer enough to log in.</li></ul></td><td>Low</td>
+<td class="muted">PWD_LOW_ENTROPY, PWD_NAME_DIGITS, DEV_NO_MFA<br><b>Breaks:</b> CH_ACCOUNT_TAKEOVER</td></tr><tr><td><b>Revoke permissions the app does not need</b><ul><li>Settings &gt; Apps &gt; [app] &gt; Permissions: set unneeded ones to &#39;Don&#39;t allow&#39;.</li><li>Prefer &#39;Only while using the app&#39; / &#39;Ask every time&#39; for camera, microphone and location.</li><li>Review Android&#39;s Privacy dashboard for recent camera/mic/location use.</li></ul></td><td>Low</td>
+<td class="muted">PERM_UNEXPECTED_MICROPHONE, PERM_UNEXPECTED_SMS, PERM_EXCESSIVE<br><b>Breaks:</b> CH_MOBILE_SURVEILLANCE</td></tr><tr><td><b>Treat as a payment / KYC scam - report to 1930 / cybercrime.gov.in</b><ul><li>You NEVER need to enter a UPI PIN to RECEIVE money - decline any collect request you did not initiate.</li><li>Banks do not ask for KYC updates through links or SMS; visit the branch or the official app.</li><li>Police/CBI do not conduct &#39;digital arrests&#39; over video calls - disconnect.</li><li>Report on the national helpline 1930 or https://cybercrime.gov.in, and use Sanchar Saathi &#39;Chakshu&#39; for fraud SMS/calls.</li></ul></td><td>Low</td>
+<td class="muted">EMAIL_IN_KYC, EMAIL_IN_FAKE_BANK<br><b>Breaks:</b> CH_INDIA_PAYMENT_SCAM</td></tr><tr><td><b>Disable background location access</b><ul><li>Settings &gt; Location &gt; App location permissions &gt; set to &#39;Allow only while using the app&#39;.</li></ul></td><td>Low</td>
+<td class="muted"><br><b>Breaks:</b> CH_MOBILE_SURVEILLANCE</td></tr><tr><td><b>Uninstall the app (or replace it with a trusted alternative)</b><ul><li>Uninstall from Settings &gt; Apps; if blocked, first remove device-admin rights.</li><li>Install apps only from Google Play and check the developer and reviews.</li><li>Run Google Play Protect scan afterwards.</li></ul></td><td>Medium</td>
+<td class="muted">PERM_UNEXPECTED_MICROPHONE, PERM_UNEXPECTED_SMS, PERM_EXCESSIVE<br><b>Breaks:</b> CH_MOBILE_SURVEILLANCE</td></tr>
+</table><h3>Soon</h3>
+<table><tr><th>Action</th><th>Effort</th><th>Why</th></tr>
+<tr><td><b>Set up automatic backups (3-2-1 rule)</b><ul><li>Keep 3 copies on 2 media with 1 offline/off-site; schedule automatic backups and test a restore.</li></ul></td><td>Medium</td>
+<td class="muted">DEV_NO_BACKUP</td></tr>
+</table>
+
+<h2>What-If: best next actions</h2>
+<table><tr><th>Action</th><th>Effort</th><th class="num">New score</th><th class="num">Gain</th><th>Breaks chain</th></tr>
+<tr><td>Do not open the risky link; use the official site instead</td><td>Low</td><td class="num">39</td><td class="num">+14</td><td></td></tr><tr><td>Replace the weak password with a long, unique passphrase</td><td>Low</td><td class="num">39</td><td class="num">+14</td><td>CH_ACCOUNT_TAKEOVER</td></tr><tr><td>Do not act on the suspicious email - verify independently and report it</td><td>Low</td><td class="num">39</td><td class="num">+14</td><td>CH_CRED_HARVEST, CH_INDIA_PAYMENT_SCAM</td></tr><tr><td>Enable multi-factor authentication (MFA)</td><td>Low</td><td class="num">32</td><td class="num">+7</td><td>CH_ACCOUNT_TAKEOVER</td></tr><tr><td>Revoke permissions the app does not need</td><td>Low</td><td class="num">32</td><td class="num">+6</td><td>CH_MOBILE_SURVEILLANCE</td></tr><tr><td>Uninstall the app (or replace it with a trusted alternative)</td><td>Medium</td><td class="num">32</td><td class="num">+6</td><td>CH_MOBILE_SURVEILLANCE</td></tr><tr><td>Treat as a payment / KYC scam - report to 1930 / cybercrime.gov.in</td><td>Low</td><td class="num">28</td><td class="num">+2</td><td>CH_INDIA_PAYMENT_SCAM</td></tr><tr><td>Set up automatic backups (3-2-1 rule)</td><td>Medium</td><td class="num">27</td><td class="num">+1</td><td></td></tr>
+</table>
+<p>Applying the top 3 actions together &rarr; projected score <b>59</b> (HIGH).</p>
+
+
+<h2>Future risks</h2>
+<ul><li>Without backups, a future ransomware infection, theft or disk failure means permanent data loss.</li><li>Apps with excessive permissions can silently start collecting more data after an update or ownership change.</li><li>Any future password leak or phishing success leads straight to account takeover while MFA is off.</li></ul>
+
+<h2>Results needing manual verification</h2>
+<p>Rules and ML agreed on all assessed inputs.</p>
+
+<h2>General security tips</h2>
+<ul><li>Use a password manager and a unique passphrase for every account.</li><li>Turn on MFA everywhere it is offered - start with email, banking and social media.</li><li>Keep OS, browser and apps on automatic updates.</li><li>Verify unexpected requests for money, OTPs or KYC through the official app or branch - never via links in messages.</li><li>Review app permissions every few months; remove apps you no longer use.</li><li>Keep an offline backup of important files.</li></ul>
+
+<div class="disclaimer"><b>Disclaimer.</b> CyberGuardian estimates personal security risk from rules, self-reported answers and
+machine-learning models trained on public datasets. URL analysis is lexical only (links are never visited); the device audit
+is self-reported; ML models can be wrong and reflect dataset bias. This report is guidance, not a guarantee of security, and does
+not replace professional incident response. No passwords, email bodies, full URLs or manifests are stored or included in this report.
+In India, report cyber fraud at 1930 or https://cybercrime.gov.in.</div>
+</div></body></html>

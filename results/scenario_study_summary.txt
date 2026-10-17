@@ -1,0 +1,7 @@
+Scenario study (13 profiles, expected tiers assigned a priori)
+Exact tier agreement: baseline 5/13, correlated 13/13
+Dangerous profiles (expected HIGH/CRITICAL): 9
+  labelled LOW/MODERATE by plain average:      7/9
+  labelled LOW/MODERATE by correlation engine: 0/9
+Ablation (correlation without HIGH-chain cap): exact 8/13, dangerous mislabelled 5/9
+Mean absolute tier error: baseline 0.77, correlated 0.00

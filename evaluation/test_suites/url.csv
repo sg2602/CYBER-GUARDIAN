@@ -1,0 +1,41 @@
+test_id,input,expected,note
+U01,https://en.wikipedia.org/wiki/Phishing,LOW,legit
+U02,https://www.google.com/search?q=weather,LOW,legit
+U03,https://github.com/pandas-dev/pandas,LOW|MODERATE,legit
+U04,https://www.amazon.in/gp/your-account/order-history,LOW|MODERATE,legit brand deep link
+U05,https://www.hdfcbank.com/personal/pay/cards,LOW|MODERATE,legit bank
+U06,https://onlinesbi.sbi/,LOW,legit bank
+U07,https://docs.python.org/3/library/urllib.parse.html,LOW|MODERATE,legit docs
+U08,https://www.irctc.co.in/nget/train-search,LOW|MODERATE,legit gov
+U09,https://mail.google.com/mail/u/0/,LOW|MODERATE,legit app
+U10,https://www.flipkart.com/,LOW,legit shop
+U11,https://stackoverflow.com/questions/tagged/python,LOW|MODERATE,legit
+U12,https://www.bbc.com/news/technology,LOW|MODERATE,legit news
+U13,https://www.iitb.ac.in/,LOW|MODERATE,legit edu
+U14,https://www.youtube.com/watch?v=dQw4w9WgXcQ,LOW|MODERATE,legit video
+U15,https://www.linkedin.com/feed/,LOW,legit social
+U16,http://paypa1-login-example.com/verify,HIGH|CRITICAL,digit swap lookalike
+U17,https://sbi-kyc-update.xyz/login.php,HIGH|CRITICAL,kyc phish
+U18,http://192.168.4.20/admin/login,HIGH|CRITICAL,ip host login
+U19,http://secure-paypal.com.account-verify.info/webscr?cmd=_login,HIGH|CRITICAL,brand in subdomain
+U20,http://kyc-update-hdfc.top/verify,HIGH|CRITICAL,suspicious tld
+U21,http://www.paypal.com@evil-site.ru/login,HIGH|CRITICAL,at-symbol trick
+U22,http://xn--pple-43d.com/signin,HIGH|CRITICAL,punycode homograph
+U23,https://bit.ly/3xYzAbc,MODERATE|HIGH|CRITICAL,shortener (destination unknown)
+U24,http://micros0ft-office-support.com/owa/login/verify.php,HIGH|CRITICAL,ms lookalike
+U25,http://amaz0n-orders-refund.icu/account/update,HIGH|CRITICAL,amazon lookalike
+U26,http://netflix-billing-update.support/payment,HIGH|CRITICAL,netflix billing
+U27,https://appleid.apple.com.verify-session.cfd/,HIGH|CRITICAL,apple subdomain trick
+U28,http://203.0.113.55:8080/hdfc/netbanking/login.html,HIGH|CRITICAL,ip + port + bank
+U29,http://secure-login-icici.xyz/otp/verify,HIGH|CRITICAL,icici phish
+U30,https://drive-google.com.docs-share.top/file/d/view,HIGH|CRITICAL,google lookalike
+U31,http://www.whatsapp-gold-update.com/download.apk,HIGH|CRITICAL,malware lure
+U32,http://faceb00k-security-check.com/checkpoint,HIGH|CRITICAL,facebook lookalike
+U33,http://login.microsoftonline.com.auth-verify.ga/common/oauth2,HIGH|CRITICAL,ms subdomain trick
+U34,http://free-recharge-jio-offer.online/claim,HIGH|CRITICAL,recharge scam
+U35,http://pan-aadhaar-link.site/update,HIGH|CRITICAL,pan aadhaar
+U36,https://indiapost-redelivery.top/pay,HIGH|CRITICAL,courier
+U37,http://dhl-parcel-customs-fee.com/track?id=99812,HIGH|CRITICAL,customs
+U38,http://binance-wallet-verify.net/connect,HIGH|CRITICAL,crypto
+U39,http://steamcommunlty.com/tradeoffer/new,HIGH|CRITICAL,steam lookalike
+U40,http://g00gle-security-alert.com/account/recover,HIGH|CRITICAL,google lookalike

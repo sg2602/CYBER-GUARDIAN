@@ -1,0 +1,123 @@
+{
+  "_comment": "C1 scenario study. All inputs are fictitious. 'expected' = risk tier assigned a priori by the authors with the rubric in README (Evaluation > Scenario study), BEFORE running the engine. null module = user skipped it.",
+  "device_good": {"os_updated": "YES", "auto_updates": "YES", "firewall": "YES", "antivirus": "YES", "screen_lock": "YES", "disk_encryption": "YES", "secure_boot": "YES", "mfa": "YES", "backup": "YES", "bluetooth": "YES", "public_wifi": "YES"},
+  "profiles": [
+    {
+      "id": "P01", "name": "Good hygiene everywhere", "expected": "LOW",
+      "rationale": "No weak area and nothing that combines.",
+      "password": {"password": "lantern-Orbit-93-quiet-Mango", "reused": false},
+      "email": {"raw": "From: Priya Sharma <priya@college.ac.in>\nSubject: Lab schedule\n\nHi all, the networks lab moves to Room 204 on Thursday. Please bring your laptops. Regards, Priya"},
+      "url": {"url": "https://en.wikipedia.org/wiki/Computer_security"},
+      "permission": {"category": "Calculator", "permissions": ["INTERNET"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P02", "name": "Credential-harvest phish, everything else good (problem statement)", "expected": "CRITICAL",
+      "rationale": "A working credential-harvesting email with a high-risk login link: one click from account takeover.",
+      "password": {"password": "Sunset#River2Quietly", "reused": false},
+      "email": {"raw": "From: \"Microsoft 365\" <no-reply@micros0ft-office-support.com>\nReply-To: helpdesk@outlook-verify.top\nSubject: Action required: password expires today\n\nYour Microsoft 365 password expires today. To keep your mailbox active, verify your account immediately and sign in to confirm your password:\nhttp://micros0ft-office-support.com/owa/login/verify.php?user=you\nFailure to verify within 24 hours will result in account suspension."},
+      "url": {"url": "https://www.linkedin.com/feed/"},
+      "permission": {"category": "Messaging", "permissions": ["INTERNET", "CONTACTS", "CAMERA", "MICROPHONE", "NOTIFICATIONS"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P03", "name": "Demo storyline: weak password + no MFA + KYC phish + nosy calculator", "expected": "CRITICAL",
+      "rationale": "Weak password, no MFA and an active credential lure form a complete account-takeover chain.",
+      "password": {"password": "Samriddhi123", "reused": false},
+      "email": {"raw": "From: \"SBI Alerts\" <alerts@sbi-kyc-update.xyz>\nReply-To: sbi.kyc.helpdesk@gmail.com\nSubject: URGENT: Your KYC is pending\n\nDear Customer, your SBI KYC update is pending. Your account will be suspended within 24 hours. Click here to verify your account and enter your net banking password and OTP: http://sbi-kyc-update.xyz/login.php"},
+      "url": {"url": "http://sbi-kyc-update.xyz/login.php"},
+      "permission": {"category": "Calculator", "permissions": ["INTERNET", "MICROPHONE", "SMS"]},
+      "device": {"mfa": "NO", "backup": "NO"}
+    },
+    {
+      "id": "P04", "name": "Banking-trojan app, everything else good", "expected": "CRITICAL",
+      "rationale": "SMS + accessibility + overlay is a complete OTP-interception / overlay-attack toolkit.",
+      "password": {"password": "Velvet!Comet-58-Harbor", "reused": false},
+      "email": {"raw": "From: Amazon.in <order-update@amazon.in>\nSubject: Your order has shipped\n\nYour order #402-1234567 has shipped and will arrive on Friday. Track it in the Amazon app."},
+      "url": {"url": "https://www.amazon.in/gp/css/order-history"},
+      "permission": {"category": "Flashlight", "permissions": ["INTERNET", "CAMERA", "SMS", "ACCESSIBILITY", "OVERLAY"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P05", "name": "Common password but MFA on", "expected": "MODERATE",
+      "rationale": "Guessable password is serious, but MFA blocks most direct takeover; no active lure.",
+      "password": {"password": "password123", "reused": false},
+      "email": null,
+      "url": {"url": "https://github.com/explore"},
+      "permission": {"category": "Music", "permissions": ["INTERNET", "STORAGE", "NOTIFICATIONS"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P06", "name": "Reused weak password + no MFA, no lure seen", "expected": "HIGH",
+      "rationale": "Credential stuffing works without any phishing; no MFA leaves no second barrier.",
+      "password": {"password": "Rahul@1998", "reused": true},
+      "email": null,
+      "url": {"url": "https://www.irctc.co.in/nget/train-search"},
+      "permission": {"category": "Shopping", "permissions": ["INTERNET", "CAMERA", "NOTIFICATIONS"]},
+      "device": {"mfa": "NO"}
+    },
+    {
+      "id": "P07", "name": "Stalkerware-like calculator", "expected": "HIGH",
+      "rationale": "Microphone + background location + SMS in a calculator is a surveillance profile.",
+      "password": {"password": "Granite_Puzzle_41_Owl", "reused": false},
+      "email": null,
+      "url": null,
+      "permission": {"category": "Calculator", "permissions": ["INTERNET", "MICROPHONE", "BACKGROUND_LOCATION", "LOCATION_FINE", "SMS"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P08", "name": "Neglected device (no backup, no updates, no encryption)", "expected": "HIGH",
+      "rationale": "One incident leads to unrecoverable loss or exposure.",
+      "password": {"password": "Maple#Signal-77-Tundra", "reused": false},
+      "email": null,
+      "url": {"url": "https://docs.python.org/3/tutorial/"},
+      "permission": {"category": "Notes", "permissions": ["INTERNET", "STORAGE"]},
+      "device": {"backup": "NO", "auto_updates": "NO", "disk_encryption": "NO", "os_updated": "NO"}
+    },
+    {
+      "id": "P09", "name": "UPI collect-request scam message", "expected": "HIGH",
+      "rationale": "Active payment-fraud lure with call-back number; money loss is one PIN entry away.",
+      "password": {"password": "Orchid$Ladder-62-Pebble", "reused": false},
+      "email": {"raw": "Congratulations! You have received a cashback of Rs 4,999 from PhonePe. To receive the money, enter your UPI PIN on the collect request sent to your number. For help call or WhatsApp 9876543210 immediately."},
+      "url": null,
+      "permission": {"category": "Banking", "permissions": ["INTERNET", "SMS", "CAMERA", "NOTIFICATIONS"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P10", "name": "Partial assessment: strong password + safe URL only", "expected": "LOW",
+      "rationale": "What was assessed is fine; coverage is only 40%.",
+      "password": {"password": "Tidal-Ember-Fjord-1984x!", "reused": false},
+      "email": null,
+      "url": {"url": "https://www.google.com/search?q=cyber+safety"},
+      "permission": null,
+      "device": null
+    },
+    {
+      "id": "P11", "name": "Promotional email, decent password, MFA on", "expected": "LOW",
+      "rationale": "Marketing email from a real brand domain is not a threat.",
+      "password": {"password": "Coral!Basin-305-Thistle", "reused": false},
+      "email": {"raw": "From: Flipkart <offers@flipkart.com>\nSubject: Big Billion Days - up to 70% off electronics\n\nShop the biggest sale of the year. Free delivery on orders above Rs 499. https://www.flipkart.com/offers-store\nUnsubscribe: https://www.flipkart.com/unsubscribe"},
+      "url": {"url": "https://www.flipkart.com/"},
+      "permission": {"category": "Shopping", "permissions": ["INTERNET", "NOTIFICATIONS", "CAMERA"]},
+      "device": "GOOD"
+    },
+    {
+      "id": "P12", "name": "PayPal look-alike login page + reused password + no MFA", "expected": "CRITICAL",
+      "rationale": "Fake login page + reusable password + no MFA = complete account-takeover chain.",
+      "password": {"password": "Monsoon2021", "reused": true},
+      "email": null,
+      "url": {"url": "http://paypa1-secure-login.com/signin/verify-account"},
+      "permission": {"category": "Social", "permissions": ["INTERNET", "CAMERA", "MICROPHONE", "NOTIFICATIONS"]},
+      "device": {"mfa": "NO"}
+    },
+    {
+      "id": "P13", "name": "'Digital arrest' scam email, otherwise good", "expected": "HIGH",
+      "rationale": "Coercive police-impersonation scam aimed at an immediate money transfer.",
+      "password": {"password": "Quartz-Willow-88-Sparrow!", "reused": false},
+      "email": {"raw": "From: CBI Cyber Crime Cell <cbi.cyber.cell@gmail.com>\nSubject: Arrest warrant - money laundering case\n\nA money laundering case is registered against your Aadhaar number. You are under digital arrest. Join the video call immediately and do not disconnect. Transfer the verification amount to the RBI safe account to avoid arrest."},
+      "url": null,
+      "permission": {"category": "Fitness", "permissions": ["INTERNET", "LOCATION_FINE", "BODY_SENSORS", "BLUETOOTH"]},
+      "device": "GOOD"
+    }
+  ]
+}

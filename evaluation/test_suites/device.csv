@@ -1,0 +1,9 @@
+test_id,no_answers,unsure_answers,expected,note
+D01,,,LOW,all yes
+D02,mfa;backup,,MODERATE,demo device
+D03,os_updated;auto_updates;firewall;antivirus;screen_lock;disk_encryption;secure_boot;mfa;backup;bluetooth;public_wifi,,CRITICAL,all no
+D04,,os_updated;auto_updates;firewall;antivirus;screen_lock;disk_encryption;secure_boot;mfa;backup;bluetooth;public_wifi,HIGH,all not sure
+D05,backup;auto_updates;disk_encryption,,MODERATE|HIGH,unrecoverable chain inputs
+D06,bluetooth;public_wifi,,LOW,minor issues
+D07,os_updated;screen_lock;mfa,,HIGH|MODERATE,major issues
+D08,secure_boot,mfa,LOW|MODERATE,minor + unsure mfa

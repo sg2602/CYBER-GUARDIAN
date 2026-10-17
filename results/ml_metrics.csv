@@ -1,0 +1,5 @@
+task,model,dataset,n_train,n_test,accuracy,precision,recall,f1,tn,fp,fn,tp,selected,train_seconds
+email,LogisticRegression,email_dataset.csv (CEAS08-ham + Nazario + Nigerian_Fraud + SpamAssassin-ham),7306,1827,0.9929,0.9917,0.9869,0.9893,1213,5,8,601,True,0.0
+email,RandomForest,email_dataset.csv (CEAS08-ham + Nazario + Nigerian_Fraud + SpamAssassin-ham),7306,1827,0.9918,0.9869,0.9885,0.9877,1210,8,7,602,False,4.9
+url,RandomForest,url_dataset.csv (ISCX-URL-2016-benign + PhiUSIIL + PhishTank-2020 + faizann24-malicious-urls),67768,16942,0.905,0.8928,0.9064,0.8995,8131,865,744,7202,True,4.3
+url,XGBoost,url_dataset.csv (ISCX-URL-2016-benign + PhiUSIIL + PhishTank-2020 + faizann24-malicious-urls),67768,16942,0.9045,0.9036,0.8915,0.8975,8240,756,862,7084,False,1.1

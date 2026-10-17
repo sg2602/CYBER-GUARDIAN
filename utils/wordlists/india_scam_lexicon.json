@@ -1,0 +1,101 @@
+{
+  "_comment": "C5: India-localized scam patterns. Each entry -> finding EMAIL_IN_<KEY>. Patterns are case-insensitive regular expressions matched against subject + body.",
+  "KYC": {
+    "title": "KYC update / expiry lure",
+    "severity": "HIGH",
+    "points": 18,
+    "attack_ids": ["T1566"],
+    "patterns": [
+      "\\bkyc\\b.{0,40}(update|expir|pending|suspend|block|verif|complete|incomplete)",
+      "(update|complete|verify|re-?verify).{0,30}\\bkyc\\b",
+      "\\bre-?kyc\\b",
+      "(e-?kyc|kyc).{0,30}(within|before|today|24 ?hours?)"
+    ]
+  },
+  "UPI_COLLECT": {
+    "title": "UPI collect-request / 'enter PIN to receive' fraud",
+    "severity": "HIGH",
+    "points": 22,
+    "attack_ids": ["T1566", "T1656"],
+    "patterns": [
+      "(enter|type|use).{0,25}(upi )?pin.{0,40}(receive|get|credit|claim|accept)",
+      "(receive|claim|get).{0,40}(enter|type).{0,15}(upi )?pin",
+      "collect request",
+      "approve.{0,30}(upi|payment) request.{0,40}(receive|refund|cashback)",
+      "\\bupi\\b.{0,40}(refund|cashback|reward).{0,40}(approve|accept|pin)",
+      "scan.{0,20}qr.{0,40}(receive|get).{0,20}(money|payment|amount)"
+    ]
+  },
+  "ELECTRICITY": {
+    "title": "Electricity disconnection threat",
+    "severity": "HIGH",
+    "points": 16,
+    "attack_ids": ["T1566", "T1656"],
+    "patterns": [
+      "electricity.{0,60}(disconnect|cut|discontinu)",
+      "(power|light|bijli).{0,40}(disconnect|cut off|will be cut)",
+      "(previous|last) month.{0,30}bill.{0,30}(not (been )?updated|unpaid)",
+      "electricity officer"
+    ]
+  },
+  "COURIER_CUSTOMS": {
+    "title": "Courier / customs parcel-held scam",
+    "severity": "MEDIUM",
+    "points": 14,
+    "attack_ids": ["T1566"],
+    "patterns": [
+      "(parcel|package|courier|shipment|consignment).{0,60}(held|seized|on hold|stuck|detained|customs)",
+      "customs (duty|clearance|charges?).{0,60}(pay|fee|release)",
+      "(fedex|dhl|india ?post|blue ?dart).{0,80}(illegal|drugs|narcotics|seized)",
+      "(redeliver|re-delivery).{0,40}(fee|charge|pay)"
+    ]
+  },
+  "DIGITAL_ARREST": {
+    "title": "'Digital arrest' / police / CBI impersonation threat",
+    "severity": "HIGH",
+    "points": 22,
+    "attack_ids": ["T1566", "T1656"],
+    "patterns": [
+      "digital(ly)? arrest",
+      "\\b(cbi|ncb|ed|enforcement directorate|cyber ?crime (cell|branch|police)|narcotics bureau|trai)\\b.{0,80}(case|warrant|arrest|fir|investigation|disconnect)",
+      "(arrest|fir|warrant).{0,60}(video call|skype|stay on (the )?call|do not disconnect)",
+      "money laundering.{0,60}(aadhaar|account|case|your name)"
+    ]
+  },
+  "FAKE_BANK": {
+    "title": "Fake bank alert (SBI/HDFC/ICICI-style)",
+    "severity": "HIGH",
+    "points": 15,
+    "attack_ids": ["T1566", "T1656"],
+    "patterns": [
+      "\\b(sbi|hdfc|icici|axis|kotak|pnb|bob|canara|yes ?bank)\\b.{0,80}(blocked|suspended|deactivat|locked|freez|expire)",
+      "(net ?banking|debit card|credit card|yono).{0,60}(blocked|suspended|deactivat|locked|expire)",
+      "(reward|redeem) points?.{0,60}(expire|expiring|redeem now)",
+      "(pan card|pan).{0,30}(not (updated|linked)).{0,40}(account|block)"
+    ]
+  },
+  "AADHAAR_PAN": {
+    "title": "Aadhaar / PAN link-or-update lure",
+    "severity": "MEDIUM",
+    "points": 14,
+    "attack_ids": ["T1566"],
+    "patterns": [
+      "\\b(aadhaar|aadhar|pan)\\b.{0,50}(link|update|verify|seed|expire|suspend|deactivat)",
+      "(link|update|verify).{0,30}\\b(aadhaar|aadhar|pan card)\\b",
+      "\\b(aadhaar|aadhar)\\b.{0,40}(otp|number).{0,30}(share|send|confirm)"
+    ]
+  },
+  "LOTTERY": {
+    "title": "Lottery / KBC / lucky-draw prize lure",
+    "severity": "MEDIUM",
+    "points": 14,
+    "attack_ids": ["T1566"],
+    "patterns": [
+      "\\bkbc\\b",
+      "kaun banega crorepati",
+      "lucky (draw|winner|customer)",
+      "(won|winner|win).{0,40}(lottery|lakh|crore|rs\\.? ?[0-9]|₹ ?[0-9])",
+      "(processing|registration|gst) (fee|charge).{0,40}(prize|lottery|claim)"
+    ]
+  }
+}

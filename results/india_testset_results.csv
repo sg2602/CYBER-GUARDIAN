@@ -1,0 +1,6 @@
+configuration,n_scams,n_legit,detection_rate_scams,false_positive_rate_legit
+Hybrid WITH India rules (rules + ML),21,7,0.8095,0.5714
+Hybrid WITHOUT India rules (rules + ML),21,7,0.7619,0.5714
+Rules only WITH India rules,21,7,0.5238,0.0
+Rules only WITHOUT India rules,21,7,0.381,0.0
+ML only (p >= 0.5),21,7,0.619,0.5714
